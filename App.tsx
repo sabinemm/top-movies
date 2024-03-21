@@ -3,6 +3,8 @@ import React, { useEffect, useState } from "react";
 import { REACT_APP_MOVIES_API_TOKEN } from "@env";
 import { StyleSheet, ActivityIndicator, View, Text } from "react-native";
 import MovieList from "./src/components/MovieList";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import {
   useFonts,
   Lato_400Regular,
@@ -17,12 +19,9 @@ export type Movie = {
   poster_path: string;
 };
 
-export default function App() {
-  const [fontsLoaded] = useFonts({
-    Lato_400Regular,
-    Lato_700Bold,
-  });
+const Stack = createNativeStackNavigator();
 
+function HomeScreen() {
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState<Movie[]>([]);
 
@@ -41,7 +40,6 @@ export default function App() {
       });
       const json = await response.json();
       setData(json.results);
-      console.log(json.results);
     } catch (error) {
       console.error(error);
     } finally {
@@ -55,19 +53,37 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      {isLoading ? (
-        <ActivityIndicator />
-      ) : (
-        <>
-          <Text
-            style={{ fontFamily: "Lato_700Bold", fontSize: 40, padding: 10 }}
-          >
-            Top 20 movies
-          </Text>
-          <MovieList data={data} />
-        </>
-      )}
+      {isLoading ? <ActivityIndicator /> : <MovieList data={data} />}
     </View>
+  );
+}
+
+export default function App() {
+  const [fontsLoaded] = useFonts({
+    Lato_400Regular,
+    Lato_700Bold,
+  });
+
+  return (
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen
+          name="Home"
+          component={HomeScreen}
+          options={{
+            title: "Top 20 movies",
+            headerStyle: {
+              backgroundColor: "black",
+            },
+            headerTintColor: "white",
+            headerTitleStyle: {
+              fontFamily: "Lato_700Bold",
+              fontSize: 24,
+            },
+          }}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
 
