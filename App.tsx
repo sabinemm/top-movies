@@ -1,17 +1,28 @@
 import React, { useEffect, useState } from "react";
 // @ts-ignore
 import { REACT_APP_MOVIES_API_TOKEN } from "@env";
-import { StyleSheet, ActivityIndicator, View } from "react-native";
+import { StyleSheet, ActivityIndicator, View, Text } from "react-native";
 import MovieList from "./src/components/MovieList";
+import {
+  useFonts,
+  Lato_400Regular,
+  Lato_700Bold,
+} from "@expo-google-fonts/lato";
 
 export type Movie = {
   id: number;
   title: string;
   release_date: string;
   vote_average: number;
+  poster_path: string;
 };
 
 export default function App() {
+  const [fontsLoaded] = useFonts({
+    Lato_400Regular,
+    Lato_700Bold,
+  });
+
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState<Movie[]>([]);
 
@@ -44,7 +55,18 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      {isLoading ? <ActivityIndicator /> : <MovieList data={data} />}
+      {isLoading ? (
+        <ActivityIndicator />
+      ) : (
+        <>
+          <Text
+            style={{ fontFamily: "Lato_700Bold", fontSize: 40, padding: 10 }}
+          >
+            Top 20 movies
+          </Text>
+          <MovieList data={data} />
+        </>
+      )}
     </View>
   );
 }
