@@ -1,12 +1,8 @@
 import React, { useEffect, useState } from "react";
+// @ts-ignore
 import { REACT_APP_MOVIES_API_TOKEN } from "@env";
-import {
-  StyleSheet,
-  ActivityIndicator,
-  FlatList,
-  Text,
-  View,
-} from "react-native";
+import { StyleSheet, ActivityIndicator, View } from "react-native";
+import MovieList from "./MovieList";
 
 export default function App() {
   const [isLoading, setLoading] = useState(true);
@@ -38,21 +34,10 @@ export default function App() {
   useEffect(() => {
     getMovies();
   }, []);
+
   return (
     <View style={styles.container}>
-      {isLoading ? (
-        <ActivityIndicator />
-      ) : (
-        <FlatList
-          data={data}
-          keyExtractor={({ id }) => id}
-          renderItem={({ item }) => (
-            <Text>
-              {item.title}, {item.release_date}
-            </Text>
-          )}
-        />
-      )}
+      {isLoading ? <ActivityIndicator /> : <MovieList data={data} />}
     </View>
   );
 }
