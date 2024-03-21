@@ -4,9 +4,16 @@ import { REACT_APP_MOVIES_API_TOKEN } from "@env";
 import { StyleSheet, ActivityIndicator, View } from "react-native";
 import MovieList from "./MovieList";
 
+export type Movie = {
+  id: number;
+  title: string;
+  release_date: string;
+  vote_average: number;
+};
+
 export default function App() {
   const [isLoading, setLoading] = useState(true);
-  const [data, setData] = useState([]);
+  const [data, setData] = useState<Movie[]>([]);
 
   const API_URL =
     "https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&primary_release_year=2023&sort_by=popularity.desc&vote_count.gte=1000";

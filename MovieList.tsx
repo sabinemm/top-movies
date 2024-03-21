@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { View, Text, FlatList } from "react-native";
 import { Picker } from "@react-native-picker/picker";
+import type { Movie } from "./App";
 
-const MovieList = ({ data }) => {
+const MovieList = React.memo(({ data }: { data: Movie[] }) => {
   const [sortOption, setSortOption] = useState("release_date");
 
   const sortMovies = (option) => {
@@ -27,7 +28,7 @@ const MovieList = ({ data }) => {
       <Picker
         selectedValue={sortOption}
         style={{ height: 50, width: 200 }}
-        onValueChange={(itemValue, itemIndex) => setSortOption(itemValue)}
+        onValueChange={(itemValue) => setSortOption(itemValue)}
       >
         <Picker.Item label="Release Date" value="release_date" />
         <Picker.Item label="Title" value="title" />
@@ -46,6 +47,6 @@ const MovieList = ({ data }) => {
       />
     </View>
   );
-};
+});
 
 export default MovieList;
