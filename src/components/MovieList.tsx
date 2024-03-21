@@ -15,7 +15,7 @@ const MovieList = React.memo(({ data }: { data: Movie[] }) => {
         <Text style={styles.pickerText}>Sort by:</Text>
         <Picker
           selectedValue={sortOption}
-          style={{ height: 50, width: 200 }}
+          style={{ height: 160, width: 200 }}
           onValueChange={(itemValue) => setSortOption(itemValue)}
         >
           <Picker.Item label="Release Date" value="release_date" />
@@ -65,12 +65,12 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   textContainer: {
-    padding: 20,
+    padding: 10,
   },
   title: {
     paddingBottom: 10,
-    fontFamily: "Lato_400Regular",
-    fontSize: 24,
+    fontFamily: "Lato_700Bold",
+    fontSize: 18,
   },
   releaseDate: {
     paddingBottom: 6,
@@ -82,8 +82,8 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   image: {
-    width: 200,
-    height: 300,
+    width: 150,
+    height: 225,
   },
 });
 
