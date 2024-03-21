@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 // @ts-ignore
 import { REACT_APP_MOVIES_API_TOKEN } from "@env";
 import { StyleSheet, ActivityIndicator, View } from "react-native";
-import MovieList from "./MovieList";
+import MovieList from "./src/components/MovieList";
 
 export type Movie = {
   id: number;

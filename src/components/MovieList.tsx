@@ -1,27 +1,13 @@
 import React, { useState } from "react";
 import { View, Text, FlatList } from "react-native";
 import { Picker } from "@react-native-picker/picker";
-import type { Movie } from "./App";
+import type { Movie } from "../../App";
+import { sortMovies } from "../utils/sortMovies";
 
 const MovieList = React.memo(({ data }: { data: Movie[] }) => {
   const [sortOption, setSortOption] = useState("release_date");
 
-  const sortMovies = (option) => {
-    const sortedMovies = [...data].sort((a, b) => {
-      if (a[option] === b[option]) {
-        if (option === "title") {
-          return a["vote_average"] - b["vote_average"];
-        } else {
-          return a["title"].localeCompare(b["title"]);
-        }
-      } else {
-        return a[option] > b[option] ? 1 : -1;
-      }
-    });
-    return sortedMovies;
-  };
-
-  const sortedMovies = sortMovies(sortOption);
+  const sortedMovies = sortMovies(data, sortOption);
 
   return (
     <View style={{ flex: 1 }}>
